@@ -1,0 +1,202 @@
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlando o Carrinho</title>
+    <style>
+        * {
+            font-family: 'Courier New', Courier, monospace;
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 0px;
+        }
+
+
+        body {
+            color: #fff;
+            background: linear-gradient(#310047 0%, #b709ec 100%);
+            padding: 10px 20px;
+            height: 100%;
+            display: block;
+            flex-direction: column;
+        }
+
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            font-size: 2em;
+            padding-bottom: 80px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+
+        button {
+            margin: 8px;
+            border-radius: 2vw;
+            background-color: rgb(0, 0, 0);
+            color: #ffffff;
+            font-size: 30px;
+            width: 150px;
+            max-width: 220px;
+            height: 100px;
+            border: none;
+            padding: 14px 20px;
+        }
+
+
+        /* .slider {
+            appearance: none;
+            -webkit-appearance: none;
+ 
+            width: 15vw;
+            height: 4vw;
+            border-radius: 10vw;
+ 
+            outline: none;
+            background: #fff;
+           
+        }
+ 
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+ 
+            width: 4vw;
+            height: 4vw;
+            border-radius: 3vw;
+ 
+            background: rgb(0, 0, 0);
+            cursor: pointer;
+        }
+ 
+        .slider::-moz-range-thumb {
+            width: 4vw;
+            height: 4vw;
+            border-radius: 3vw;
+ 
+            background: rgb(0, 0, 0);
+            cursor: pointer;
+        } */
+
+        .frente {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .meio {
+            display: flex;
+            justify-content: left;
+        }
+
+        .re {
+            display: flex;
+            justify-content: center;
+        }
+
+
+        .botao{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+
+
+
+
+
+
+        @media (max-width: 1000px) {
+            header {
+                padding: 15px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            header p {
+                font-size: 12px;
+            }
+
+            p {
+                font-size: 30px;
+            }
+
+            main {
+                margin: 20px auto;
+                padding: 0 10px;
+            }
+
+            button {
+                width: 200px;
+                max-width: 120px;
+                height: 100px;
+                border-radius: 5%;
+            }
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Controle do carro de corrida do Max Verstapen!<h1></h1>
+    </header>
+
+    <main>
+        <!-- ======== BOTÕES DE AÇÃO ============ -->
+        <!-- <section class="botoesact">
+
+            <div id="luzes">
+                <button onclick="location.href='/luzes frontais'">💡</button>
+            </div>
+
+            <div id="luzes">
+                <button onclick="location.href='/luzes traseiras'">🔦</button>
+            </div>
+
+            <div id="atk">
+                <button onclick="location.href='/ataque'">⚔️</button>
+            </div>
+        </section> -->
+
+        <!-- ======= BOTÕES DIRECIONAIS ========== -->
+        <section class="botao">
+
+            
+
+            <div>
+                <div class="frente">
+                    <button onclick="location.href='/dianteiro'">▲</button>
+                </div>
+
+                <div class="meio">
+                    <button onclick="location.href='/esquerda'">◀</button>
+                    <button onclick="location.href='/parar'">⏹︎</button>
+                    <button onclick="location.href='/direita'">▶</button>
+                </div>
+
+                <div class="re">
+                    <button onclick="location.href='/traseiro'">▼</button>
+                </div>
+            </div>
+
+            <div class="bot">
+                <button onclick="location.href='/luzes frontais'" class="luzf">💡</button>
+                <button onclick="location.href='/luzes traseiras'" class="luzt">🔦</button>
+                <button onclick="location.href='/ataque'" class="atk">⚔️</button>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
