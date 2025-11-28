@@ -101,17 +101,37 @@
         }
 
 
-        .botao{
+        .botao {
             display: flex;
             align-items: center;
-            justify-content: space-around;
+            justify-content: space-evenly;
         }
 
 
 
+        .botao2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-direction: column;
+        }
+
+        .atk {
+            display: flex;
+            justify-content: right;
+        }
 
 
+        .luzest {
+            display: flex;
+            justify-content: center;
+        }
 
+        .luzesf {
+            display: flex;
+            justify-content: center;
+
+        }
 
         @media (max-width: 1000px) {
             header {
@@ -172,7 +192,7 @@
         <!-- ======= BOTÕES DIRECIONAIS ========== -->
         <section class="botao">
 
-            
+
 
             <div>
                 <div class="frente">
@@ -190,10 +210,22 @@
                 </div>
             </div>
 
-            <div class="bot">
-                <button onclick="location.href='/luzes frontais'" class="luzf">💡</button>
-                <button onclick="location.href='/luzes traseiras'" class="luzt">🔦</button>
-                <button onclick="location.href='/ataque'" class="atk">⚔️</button>
+            <!--=============== BOTÕES DE ATAQUE ================== -->
+
+
+            <div class="botao2">
+                <div class="luzesf">
+                    <button onclick="location.href='/luzes frontais'">💡</button>
+                </div>
+                <div class="atk">
+                    <button onclick="location.href='/esquerda'">◀</button>
+                    <button onclick="location.href='/ataque'">⚔️</button>
+                    <button onclick="location.href='/direita'">▶</button>
+                </div>
+
+                <div class="luzest">
+                    <button onclick="location.href='/luzes traseiras'">🔦</button>
+                </div>
             </div>
         </section>
     </main>
