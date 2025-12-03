@@ -36,7 +36,7 @@
             color: #fff;
             background: linear-gradient(#252525 0%, #bdbaba 100%);
             padding: 10px 20px;
-            height: 100%;
+            min-height: 100vh;
             display: block;
             flex-direction: column;
         }
@@ -67,19 +67,21 @@
         .botao {
             background-color: #252525;
             border-radius: 60px 60px 0px 0px;
-            margin-left: 60px; 
-            margin-right: 60px;
-            padding: 30px 0px 50px 0px ;
+            margin-left: 400px;
+            margin-right: 370px;
+            padding: 30px 0px 50px 0px;
             display: flex;
             align-items: center;
             justify-content: space-evenly;
         }
-        .apoio{
+
+        .apoio {
             display: flex;
-            margin: 0 60px;
+            margin: -2px 370px 5 400px;
             justify-content: space-between;
-            
+
         }
+
         .apoio1 {
             background-color: #252525;
             width: 255px;
@@ -91,9 +93,29 @@
             background-color: #252525;
             width: 255px;
             height: 260px;
-            border-radius: 2px 0px 50px 70px;    
+            border-radius: 2px 0px 50px 70px;
         }
-           
+
+        .analogico {
+            display: flex;
+            margin: -288px 596px 5 632px;
+            border-radius: 100px;
+            justify-content: space-between;
+        }
+
+        .analog1 {
+            background-color: red;
+            width: 110px;
+            height: 110px;
+            border-radius: 150px;
+        }
+
+        .analog2 {
+            background-color: red;
+            width: 110px;
+            height: 110px;
+            border-radius: 150px;
+        }
 
 
         .frente {
@@ -203,6 +225,61 @@
                 height: 100px;
                 border-radius: 5%;
             }
+
+            .botao {
+                background-color: #252525;
+                border-radius: 60px 60px 0px 0px;
+                margin-left: -20px;
+                margin-right: -20px;
+                padding: 30px 0px 50px 0px;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            .apoio {
+                display: flex;
+                margin: 0 -20px;
+                justify-content: space-between;
+
+            }
+
+            .apoio1 {
+                background-color: #252525;
+                width: 210px;
+                height: 210px;
+                border-radius: 0px 2px 70px 50px;
+            }
+
+            .apoio2 {
+                background-color: #252525;
+                width: 210px;
+                height: 210px;
+                border-radius: 2px 0px 50px 70px;
+            }
+
+            .analogico {
+            display: flex;
+            margin: -243px 136px 300;
+            border-radius: 100px;
+            justify-content: space-between;
+        }
+
+        .analog1 {
+            background-color: rgb(85, 84, 84);
+            width: 110px;
+            height: 110px;
+            border-radius: 150px;
+        }
+
+        .analog2 {
+            background-color: rgb(85, 84, 84);
+            width: 110px;
+            height: 110px;
+            border-radius: 150px;
+            
+        }
+
         }
     </style>
     </style>
@@ -250,6 +327,16 @@
             </div>
 
             <div class="apoio2">
+            </div>
+        </section>
+
+        <section class="analogico">
+            <div class="analog1">
+
+            </div>
+
+            <div class="analog2">
+
             </div>
         </section>
     </main>
