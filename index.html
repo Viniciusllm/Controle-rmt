@@ -34,7 +34,7 @@
 
         body {
             color: #fff;
-            background: linear-gradient(#252525 0%, #bdbaba 100%);
+            background: linear-gradient(to right, #252525 0%, #bdbaba 137%);
             padding: 10px 20px;
             min-height: 100vh;
             display: block;
@@ -49,6 +49,21 @@
         h2 {
             text-align: center;
             margin-top: 100px;
+        }
+
+        .imagem {
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            transform: translateY(50px);
+            opacity: 0.5;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-radius: 60px;
+        }
+
+        .imagem:hover {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         button {
@@ -96,27 +111,6 @@
             border-radius: 2px 0px 50px 70px;
         }
 
-        .analogico {
-            display: flex;
-            margin: -288px 596px 5 632px;
-            border-radius: 100px;
-            justify-content: space-between;
-        }
-
-        .analog1 {
-            background-color: red;
-            width: 110px;
-            height: 110px;
-            border-radius: 150px;
-        }
-
-        .analog2 {
-            background-color: red;
-            width: 110px;
-            height: 110px;
-            border-radius: 150px;
-        }
-
 
         .frente {
             display: flex;
@@ -124,10 +118,12 @@
         }
 
         .frente button {
-            background-color: rgb(92, 94, 94);
+           background-color: rgb(0 0 0 / 70%);
             border-radius: 40%;
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
+            box-shadow: 7px 5px 6px black;
+            border: solid 1px black;
         }
 
         .meio {
@@ -136,10 +132,12 @@
         }
 
         .meio button {
-            background-color: rgb(92, 94, 94);
+            background-color: rgb(0 0 0 / 70%);
             border-radius: 40%;
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
+            box-shadow: 7px 5px 6px black;
+            border: solid 1px black;
         }
 
         .re {
@@ -148,10 +146,13 @@
         }
 
         .re button {
-            background-color: rgb(92, 94, 94);
+            background-color: rgb(0 0 0 / 70%);
             border-radius: 40%;
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px; 
+            box-shadow: 7px 5px 6px black;
+            border: solid 1px black;
+            
         }
 
         .botao2 {
@@ -167,22 +168,27 @@
         }
 
         .atk button {
-            background-color: rgb(92, 94, 94);
+            background-color: rgb(0 0 0 / 80%);
             border-radius: 50%;
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
+            box-shadow: 7px 5px 6px black;
+            border: solid 1px black;
         }
 
         .luzest {
             display: flex;
             justify-content: center;
+
         }
 
         .luzest button {
-            background-color: rgb(92, 94, 94);
+            background-color: rgb(0 0 0 / 80%);
             border-radius: 50%;
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
+            box-shadow: 7px 5px 6px black;
+            border: solid 1px black;
         }
 
         .luzesf {
@@ -191,104 +197,75 @@
         }
 
         .luzesf button {
-            background-color: rgb(92, 94, 94);
+            background-color: rgb(0 0 0 / 80%);
             border-radius: 50%;
-            height: 100px;
-            width: 100px;
+            height: 80px;
+            width: 80px;
+            box-shadow: 7px 5px 6px black;
+            border: solid 1px black;
         }
 
+
+
         @media (max-width: 1000px) {
-            header {
-                padding: 15px;
+            * {
+                padding: 0;
+                margin: 0;
             }
 
-            header h1 {
-                font-size: 20px;
-            }
 
-            header p {
-                font-size: 12px;
-            }
 
-            p {
-                font-size: 30px;
-            }
 
             main {
                 margin: 20px auto;
                 padding: 0 10px;
             }
 
-            button {
-                width: 200px;
-                max-width: 120px;
-                height: 100px;
-                border-radius: 5%;
+            .botao {
+                background: linear-gradient(#252525, #000);
+                border-radius: 60px;
+                margin: -35px -25px;
+                height: 100vh;
+                display: flex;
+                gap: 80px;
+                align-items: center;
+                justify-content: space-evenly;
+                background-image: url(https://i.pinimg.com/736x/7e/61/72/7e617230ae15f4cb117aef7595f79d0b.jpg);
+                background-repeat: round;
+            }
+
+        }
+
+        @media (max-width: 500px) {
+            * {
+                padding: 0;
+                margin: 0;
             }
 
             .botao {
-                background-color: #252525;
-                border-radius: 60px 60px 0px 0px;
-                margin-left: -20px;
-                margin-right: -20px;
-                padding: 30px 0px 50px 0px;
+                background-color: #ad2c2c;
+                border-radius: 60px;
+                margin-left: -27px;
+                margin-right: -27px;
+                height: 100vh;
                 display: flex;
+                flex-direction: column;
+                gap: 40px;
+                padding: 0px;
                 align-items: center;
                 justify-content: space-evenly;
+                background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
+                background-repeat: round;
             }
-
-            .apoio {
-                display: flex;
-                margin: 0 -20px;
-                justify-content: space-between;
-
-            }
-
-            .apoio1 {
-                background-color: #252525;
-                width: 210px;
-                height: 210px;
-                border-radius: 0px 2px 70px 50px;
-            }
-
-            .apoio2 {
-                background-color: #252525;
-                width: 210px;
-                height: 210px;
-                border-radius: 2px 0px 50px 70px;
-            }
-
-            .analogico {
-            display: flex;
-            margin: -243px 136px 300;
-            border-radius: 100px;
-            justify-content: space-between;
-        }
-
-        .analog1 {
-            background-color: rgb(85, 84, 84);
-            width: 110px;
-            height: 110px;
-            border-radius: 150px;
-        }
-
-        .analog2 {
-            background-color: rgb(85, 84, 84);
-            width: 110px;
-            height: 110px;
-            border-radius: 150px;
-            
-        }
-
         }
     </style>
     </style>
 </head>
 
 <body>
-    <header>
+    <!-- <header>
         <h1>Controle do carro de corrida do Max Verstapen!<h1></h1>
-    </header>
+    </header> -->
     <main>
         <!-- ======= BOTÕES DIRECIONAIS ========== -->
         <section class="botao">
@@ -321,23 +298,6 @@
                 </div>
             </div>
         </section>
-
-        <section class="apoio">
-            <div class="apoio1">
-            </div>
-
-            <div class="apoio2">
-            </div>
-        </section>
-
-        <section class="analogico">
-            <div class="analog1">
-
-            </div>
-
-            <div class="analog2">
-
-            </div>
         </section>
     </main>
 </body>
