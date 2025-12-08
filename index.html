@@ -7,14 +7,16 @@
         const int in2 = 27;
         const int in3 = 14;
         const int in4 = 12;
+
         //Portas dos botões
+
+        const int buzina = 15;
         const int luzesF = 33;
         const int luzesT = 32;
         const int ataqueAtk = 35;
         const int direita = 34;
         const int Esquerda = 25;
         WebServer server(80);
-
 
         const char* PAGINA = R"HTML( -->
 
@@ -39,16 +41,6 @@
             min-height: 100vh;
             display: block;
             flex-direction: column;
-        }
-
-        header {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 100px;
         }
 
         .imagem {
@@ -80,14 +72,18 @@
         }
 
         .botao {
-            background-color: #252525;
-            border-radius: 60px 60px 0px 0px;
-            margin-left: 400px;
-            margin-right: 370px;
-            padding: 30px 0px 50px 0px;
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
+            background-color: #ad2c2c;
+                border-radius: 60px;
+                margin-left: -14px;
+                margin-right: -14px;
+                height: 100vh;
+                display: flex;
+                gap: 250px;
+                padding: 50px;
+                align-items: center;
+                justify-content: space-evenly;
+                background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
+                background-repeat: round;
         }
 
         .apoio {
@@ -213,9 +209,6 @@
                 margin: 0;
             }
 
-
-
-
             main {
                 margin: 20px auto;
                 padding: 0 10px;
@@ -253,7 +246,7 @@
                 gap: 40px;
                 padding: 0px;
                 align-items: center;
-                justify-content: space-evenly;
+                justify-content: space-evenly; 
                 background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
                 background-repeat: round;
             }
@@ -289,7 +282,7 @@
                     <button onclick="location.href='/luzesfrontais'">💡</button>
                 </div>
                 <div class="atk">
-                    <button onclick="location.href='/esquerda'">◀</button>
+                    <button onclick="location.href='/esquerda'" >◀</button>
                     <button onclick="location.href='/ataque'">⚔️</button>
                     <button onclick="location.href='/direita'">▶</button>
                 </div>
@@ -305,7 +298,8 @@
 </html>
 
 <!-- )HTML";
-        void handleRoot(){
+
+void handleRoot(){
         server.send(200, "text/html", PAGINA);
         }
         void motorDianteiro(){
@@ -348,22 +342,31 @@
         digitalWrite(luzesF, HIGH);
         server.send(200, "text/html", PAGINA);
         }
+
         void luzesTraseiras(){
         digitalWrite(luzesT, HIGH);
         digitalWrite(luzesT, LOW);
         server.send(200, "text/html", PAGINA);
         }
+
         void Atk(){
         digitalWrite(ataqueAtk, HIGH);
         digitalWrite(ataqueAtk, LOW);
         server.send(200, "text/html", PAGINA);
         }
+
+        void buz(){
+        digitalWrite(buzina,HIGH);
+        server.send(200, "text/html", PAGINA);
+        }
+
         void setup() {
         //configurando portas do motor A
         pinMode(in1, OUTPUT);
         pinMode(in2, OUTPUT);
         pinMode(in3, OUTPUT);
         pinMode(in4, OUTPUT);
+        pinMode(buzina,OUTPUT);
         pinMode(luzesF, OUTPUT);
         pinMode(luzesT, OUTPUT);
         pinMode(ataqueAtk, OUTPUT);
@@ -383,6 +386,7 @@
         server.on("/luzesfrente", luzesFrontais);
         server.on("/luzestras", luzesTraseiras);
         server.on("/atk", Atk);
+        server.on("/buzina, buz");
         server.begin();
         }
         void loop() {
