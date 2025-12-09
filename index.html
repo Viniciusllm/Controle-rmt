@@ -1,7 +1,7 @@
-<!-- #include <WiFi.h>
+#include <WiFi.h>
     #include <WebServer.h>
-        const char* AC_SSID = "Relâmpago Marquinhos";
-        const char* AC_PWD = "12345678";
+        const char* STA_SSID = "CONECTA_SENAC"; //Rede do senac
+        const char* STA_PWD = "";
         //Portas para controlar o motor A
         const int in1 = 26;
         const int in2 = 27;
@@ -16,290 +16,291 @@
         const int ataqueAtk = 35;
         const int direita = 34;
         const int Esquerda = 25;
+
         WebServer server(80);
 
-        const char* PAGINA = R"HTML( -->
+        String PAGINA = R"rawliteral(
+        <!DOCTYPE html>
+        <html lang="pt-BR">
 
-<html lang="pt-BR">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Controlando o Carrinho</title>
+            <style>
+                * {
+                    font-family: 'Courier New', Courier, monospace;
+                    box-sizing: border-box;
+                    margin: 0px;
+                    padding: 0px;
+                }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controlando o Carrinho</title>
-    <style>
-        * {
-            font-family: 'Courier New', Courier, monospace;
-            box-sizing: border-box;
-            margin: 0px;
-            padding: 0px;
-        }
+                body {
+                    color: #fff;
+                    background: linear-gradient(to right, #252525 0%, #bdbaba 137%);
+                    padding: 10px 20px;
+                    min-height: 100vh;
+                    display: block;
+                    flex-direction: column;
+                }
 
-        body {
-            color: #fff;
-            background: linear-gradient(to right, #252525 0%, #bdbaba 137%);
-            padding: 10px 20px;
-            min-height: 100vh;
-            display: block;
-            flex-direction: column;
-        }
+                .imagem {
+                    display: flex;
+                    margin: 0;
+                    height: 100vh;
+                    transform: translateY(50px);
+                    opacity: 0.5;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
+                    border-radius: 60px;
+                }
 
-        .imagem {
-            display: flex;
-            margin: 0;
-            height: 100vh;
-            transform: translateY(50px);
-            opacity: 0.5;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            border-radius: 60px;
-        }
+                .imagem:hover {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
 
-        .imagem:hover {
-            transform: translateY(0);
-            opacity: 1;
-        }
+                button {
+                    margin: 8px;
+                    border-radius: 2vw;
+                    background-color: rgb(0, 0, 0);
+                    color: #ffffff;
+                    font-size: 30px;
+                    width: 150px;
+                    max-width: 220px;
+                    height: 100px;
+                    border: none;
+                    padding: 14px 20px;
+                }
 
-        button {
-            margin: 8px;
-            border-radius: 2vw;
-            background-color: rgb(0, 0, 0);
-            color: #ffffff;
-            font-size: 30px;
-            width: 150px;
-            max-width: 220px;
-            height: 100px;
-            border: none;
-            padding: 14px 20px;
-        }
+                .botao {
+                    background-color: #ad2c2c;
+                    border-radius: 60px;
+                    margin-left: -14px;
+                    margin-right: -14px;
+                    height: 100vh;
+                    display: flex;
+                    gap: 250px;
+                    padding: 50px;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
+                    background-repeat: round;
+                }
 
-        .botao {
-            background-color: #ad2c2c;
-                border-radius: 60px;
-                margin-left: -14px;
-                margin-right: -14px;
-                height: 100vh;
-                display: flex;
-                gap: 250px;
-                padding: 50px;
-                align-items: center;
-                justify-content: space-evenly;
-                background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
-                background-repeat: round;
-        }
+                .apoio {
+                    display: flex;
+                    margin: -2px 370px 5 400px;
+                    justify-content: space-between;
 
-        .apoio {
-            display: flex;
-            margin: -2px 370px 5 400px;
-            justify-content: space-between;
+                }
 
-        }
+                .apoio1 {
+                    background-color: #252525;
+                    width: 255px;
+                    height: 260px;
+                    border-radius: 0px 2px 70px 50px;
+                }
 
-        .apoio1 {
-            background-color: #252525;
-            width: 255px;
-            height: 260px;
-            border-radius: 0px 2px 70px 50px;
-        }
-
-        .apoio2 {
-            background-color: #252525;
-            width: 255px;
-            height: 260px;
-            border-radius: 2px 0px 50px 70px;
-        }
-
-
-        .frente {
-            display: flex;
-            justify-content: center;
-        }
-
-        .frente button {
-           background-color: rgb(0 0 0 / 70%);
-            border-radius: 40%;
-            height: 80px;
-            width: 80px;
-            box-shadow: 7px 5px 6px black;
-            border: solid 1px black;
-        }
-
-        .meio {
-            display: flex;
-            justify-content: left;
-        }
-
-        .meio button {
-            background-color: rgb(0 0 0 / 70%);
-            border-radius: 40%;
-            height: 80px;
-            width: 80px;
-            box-shadow: 7px 5px 6px black;
-            border: solid 1px black;
-        }
-
-        .re {
-            display: flex;
-            justify-content: center;
-        }
-
-        .re button {
-            background-color: rgb(0 0 0 / 70%);
-            border-radius: 40%;
-            height: 80px;
-            width: 80px; 
-            box-shadow: 7px 5px 6px black;
-            border: solid 1px black;
-            
-        }
-
-        .botao2 {
-            display: flex;
-            align-items: center;
-            justify-content: space-evenly;
-            flex-direction: column;
-        }
-
-        .atk {
-            display: flex;
-            justify-content: right;
-        }
-
-        .atk button {
-            background-color: rgb(0 0 0 / 80%);
-            border-radius: 50%;
-            height: 80px;
-            width: 80px;
-            box-shadow: 7px 5px 6px black;
-            border: solid 1px black;
-        }
-
-        .luzest {
-            display: flex;
-            justify-content: center;
-
-        }
-
-        .luzest button {
-            background-color: rgb(0 0 0 / 80%);
-            border-radius: 50%;
-            height: 80px;
-            width: 80px;
-            box-shadow: 7px 5px 6px black;
-            border: solid 1px black;
-        }
-
-        .luzesf {
-            display: flex;
-            justify-content: center;
-        }
-
-        .luzesf button {
-            background-color: rgb(0 0 0 / 80%);
-            border-radius: 50%;
-            height: 80px;
-            width: 80px;
-            box-shadow: 7px 5px 6px black;
-            border: solid 1px black;
-        }
+                .apoio2 {
+                    background-color: #252525;
+                    width: 255px;
+                    height: 260px;
+                    border-radius: 2px 0px 50px 70px;
+                }
 
 
+                .frente {
+                    display: flex;
+                    justify-content: center;
+                }
 
-        @media (max-width: 1000px) {
-            * {
-                padding: 0;
-                margin: 0;
-            }
+                .frente button {
+                    background-color: rgb(0 0 0 / 70%);
+                    border-radius: 40%;
+                    height: 80px;
+                    width: 80px;
+                    box-shadow: 7px 5px 6px black;
+                    border: solid 1px black;
+                }
 
-            main {
-                margin: 20px auto;
-                padding: 0 10px;
-            }
+                .meio {
+                    display: flex;
+                    justify-content: left;
+                }
 
-            .botao {
-                background: linear-gradient(#252525, #000);
-                border-radius: 60px;
-                margin: -35px -25px;
-                height: 100vh;
-                display: flex;
-                gap: 80px;
-                align-items: center;
-                justify-content: space-evenly;
-                background-image: url(https://i.pinimg.com/736x/7e/61/72/7e617230ae15f4cb117aef7595f79d0b.jpg);
-                background-repeat: round;
-            }
+                .meio button {
+                    background-color: rgb(0 0 0 / 70%);
+                    border-radius: 40%;
+                    height: 80px;
+                    width: 80px;
+                    box-shadow: 7px 5px 6px black;
+                    border: solid 1px black;
+                }
 
-        }
+                .re {
+                    display: flex;
+                    justify-content: center;
+                }
 
-        @media (max-width: 500px) {
-            * {
-                padding: 0;
-                margin: 0;
-            }
+                .re button {
+                    background-color: rgb(0 0 0 / 70%);
+                    border-radius: 40%;
+                    height: 80px;
+                    width: 80px;
+                    box-shadow: 7px 5px 6px black;
+                    border: solid 1px black;
 
-            .botao {
-                background-color: #ad2c2c;
-                border-radius: 60px;
-                margin-left: -27px;
-                margin-right: -27px;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                gap: 40px;
-                padding: 0px;
-                align-items: center;
-                justify-content: space-evenly; 
-                background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
-                background-repeat: round;
-            }
-        }
-    </style>
-    </style>
-</head>
+                }
 
-<body>
-    <!-- <header>
+                .botao2 {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    flex-direction: column;
+                }
+
+                .atk {
+                    display: flex;
+                    justify-content: right;
+                }
+
+                .atk button {
+                    background-color: rgb(0 0 0 / 80%);
+                    border-radius: 50%;
+                    height: 80px;
+                    width: 80px;
+                    box-shadow: 7px 5px 6px black;
+                    border: solid 1px black;
+                }
+
+                .luzest {
+                    display: flex;
+                    justify-content: center;
+
+                }
+
+                .luzest button {
+                    background-color: rgb(0 0 0 / 80%);
+                    border-radius: 50%;
+                    height: 80px;
+                    width: 80px;
+                    box-shadow: 7px 5px 6px black;
+                    border: solid 1px black;
+                }
+
+                .luzesf {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .luzesf button {
+                    background-color: rgb(0 0 0 / 80%);
+                    border-radius: 50%;
+                    height: 80px;
+                    width: 80px;
+                    box-shadow: 7px 5px 6px black;
+                    border: solid 1px black;
+                }
+
+
+
+                @media (max-width: 1000px) {
+                    * {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    main {
+                        margin: 20px auto;
+                        padding: 0 10px;
+                    }
+
+                    .botao {
+                        background: linear-gradient(#252525, #000);
+                        border-radius: 60px;
+                        margin: -35px -25px;
+                        height: 100vh;
+                        display: flex;
+                        gap: 80px;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        background-image: url(https://i.pinimg.com/736x/7e/61/72/7e617230ae15f4cb117aef7595f79d0b.jpg);
+                        background-repeat: round;
+                    }
+
+                }
+
+                @media (max-width: 500px) {
+                    * {
+                        padding: 0;
+                        margin: 0;
+                    }
+
+                    .botao {
+                        background-color: #ad2c2c;
+                        border-radius: 60px;
+                        margin-left: -27px;
+                        margin-right: -27px;
+                        height: 100vh;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 40px;
+                        padding: 0px;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        background-image: url(https://i.pinimg.com/1200x/bd/c6/6d/bdc66d3a5ca6d5f9630d7ce1471f46a4.jpg);
+                        background-repeat: round;
+                    }
+                }
+            </style>
+            </style>
+        </head>
+
+        <body>
+            <!-- <header>
         <h1>Controle do carro de corrida do Max Verstapen!<h1></h1>
     </header> -->
-    <main>
-        <!-- ======= BOTÕES DIRECIONAIS ========== -->
-        <section class="botao">
-            <div>
-                <div class="frente">
-                    <button onclick="location.href='/dianteiro'">▲</button>
-                </div>
-                <div class="meio">
-                    <button onclick="location.href='/esquerda'">◀</button>
-                    <button onclick="location.href='/parar'">⏹︎</button>
-                    <button onclick="location.href='/direita'">▶</button>
-                </div>
-                <div class="re">
-                    <button onclick="location.href='/traseiro'">▼</button>
-                </div>
-            </div>
-            <!--=============== BOTÕES DE ATAQUE ================== -->
+            <main>
+                <!-- ======= BOTÕES DIRECIONAIS ========== -->
+                <section class="botao">
+                    <div>
+                        <div class="frente">
+                            <button onclick="location.href='/dianteiro'">▲</button>
+                        </div>
+                        <div class="meio">
+                            <button onclick="location.href='/esquerda'">◀</button>
+                            <button onclick="location.href='/parar'">⏹︎</button>
+                            <button onclick="location.href='/direita'">▶</button>
+                        </div>
+                        <div class="re">
+                            <button onclick="location.href='/traseiro'">▼</button>
+                        </div>
+                    </div>
+                    <!--=============== BOTÕES DE ATAQUE ================== -->
 
-            <div class="botao2">
-                <div class="luzesf">
-                    <button onclick="location.href='/luzesfrontais'">💡</button>
-                </div>
-                <div class="atk">
-                    <button onclick="location.href='/esquerda'" >◀</button>
-                    <button onclick="location.href='/ataque'">⚔️</button>
-                    <button onclick="location.href='/direita'">▶</button>
-                </div>
-                <div class="luzest">
-                    <button onclick="location.href='/luzestraseiras'">🔦</button>
-                </div>
-            </div>
-        </section>
-        </section>
-    </main>
-</body>
+                    <div class="botao2">
+                        <div class="luzesf">
+                            <button onclick="location.href='/luzesfrontais'">💡</button>
+                        </div>
+                        <div class="atk">
+                            <button onclick="location.href='/esquerda'">◀</button>
+                            <button onclick="location.href='/ataque'">⚔️</button>
+                            <button onclick="location.href='/direita'">▶</button>
+                        </div>
+                        <div class="luzest">
+                            <button onclick="location.href='/luzestraseiras'">🔦</button>
+                        </div>
+                    </div>
+                </section>
+                </section>
+            </main>
+        </body>
 
-</html>
+        </html>
 
-<!-- )HTML";
+        )rawliteral";
 
-void handleRoot(){
+        void handleRoot(){
         server.send(200, "text/html", PAGINA);
         }
         void motorDianteiro(){
@@ -360,7 +361,45 @@ void handleRoot(){
         server.send(200, "text/html", PAGINA);
         }
 
+
         void setup() {
+        Serial.begin(115200);
+        delay(1000);
+
+        IPAddress local_IP(192, 168, 27, 51);
+        IPAddress gateway(192, 168, 16, 1);
+        IPAddress subnet(255, 255, 240, 0);
+        IPAddress dns(8, 8, 8, 8);
+
+        WiFi.config(local_IP, gateway, subnet, dns);
+
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(STA_SSID, STA_PWD);
+
+        Serial.print("Conectando ao WiFi ");
+        Serial.println(STA_SSID);
+
+        int tentativas = 0;
+        while (WiFi.status() != WL_CONNECTED && tentativas < 30) {
+        delay(500);
+        Serial.print(".");
+        tentativas++;
+     }
+        if (WiFi.status() != WL_CONNECTED) {
+        Serial.println("\nNAO CONECTOU AO WIFI :(");
+        return; // não continua se não tiver WiFi
+        }
+
+         Serial.println("\nConectado!");
+         Serial.print("IP do ESP32: ");
+         Serial.println(WiFi.localIP());
+         Serial.print("Gateway: ");
+         Serial.println(WiFi.gatewayIP());
+         Serial.print("Mascara: ");
+         Serial.println(WiFi.subnetMask());
+
+        Serial.println();
+        Serial.println("Iniciando ESP32...");
         //configurando portas do motor A
         pinMode(in1, OUTPUT);
         pinMode(in2, OUTPUT);
@@ -371,13 +410,10 @@ void handleRoot(){
         pinMode(luzesT, OUTPUT);
         pinMode(ataqueAtk, OUTPUT);
 
-        WiFi.mode(WIFI_AP);
-        WiFi.softAP(AC_SSID, AC_PWD);
+      
         Serial.begin(115200);
-        Serial.println("Criando rede WiFi");
-        Serial.print("IP: ");
-        Serial.println(WiFi.softAPIP());
         server.on("/", handleRoot);
+        server.begin();
         server.on("/dianteiro", motorDianteiro);
         server.on("/traseiro", motorTraseiro);
         server.on("/parar", motorParar);
@@ -386,9 +422,9 @@ void handleRoot(){
         server.on("/luzesfrente", luzesFrontais);
         server.on("/luzestras", luzesTraseiras);
         server.on("/atk", Atk);
-        server.on("/buzina, buz");
+        server.on("/buzina", buz);
         server.begin();
         }
         void loop() {
         server.handleClient();
-        } -->
+        }
