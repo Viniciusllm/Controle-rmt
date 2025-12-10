@@ -11,6 +11,7 @@
         //Portas dos botões
 
         const int buzina = 15;
+        const int buzina2 = 2;
         const int luzesF = 33;
         const int luzesT = 32;
         const int ataqueAtk = 35;
@@ -284,7 +285,7 @@
                         </div>
                         <div class="atk">
                             <button onclick="location.href='/esquerda'">◀</button>
-                            <button onclick="location.href='/ataque'">⚔️</button>
+                            <button onclick="location.href='/buzina'">⚔️</button>
                             <button onclick="location.href='/direita'">▶</button>
                         </div>
                         <div class="luzest">
@@ -357,7 +358,16 @@
         }
 
         void buz(){
-        digitalWrite(buzina,HIGH);
+        digitalWrite(buzina, HIGH);
+        delay(1000);
+        digitalWrite(buzina, LOW);
+        server.send(200, "text/html", PAGINA);
+        }
+
+        void buz2(){
+        digitalWrite(buzina2, HIGH);
+        delay(1000);
+        digitalWrite(buzina2, LOW);
         server.send(200, "text/html", PAGINA);
         }
 
@@ -406,6 +416,7 @@
         pinMode(in3, OUTPUT);
         pinMode(in4, OUTPUT);
         pinMode(buzina,OUTPUT);
+        pinMode(buzina2,OUTPUT);
         pinMode(luzesF, OUTPUT);
         pinMode(luzesT, OUTPUT);
         pinMode(ataqueAtk, OUTPUT);
@@ -423,6 +434,7 @@
         server.on("/luzestras", luzesTraseiras);
         server.on("/atk", Atk);
         server.on("/buzina", buz);
+        server.on("/buzina2", buz2);
         server.begin();
         }
         void loop() {
