@@ -1,3 +1,4 @@
+#include <Servo.h>
 #include <WiFi.h>
     #include <WebServer.h>
         const char* STA_SSID = "CONECTA_SENAC"; //Rede do senac
@@ -10,13 +11,14 @@
 
         //Portas dos botões
 
-        const int buzina = 15;
-        const int buzina2 = 2;
+        const int buzina = 4;
         const int luzesF = 33;
-        const int luzesT = 32;
         const int ataqueAtk = 35;
         const int direita = 34;
         const int Esquerda = 25;
+
+        Servo ataqueServo;
+        const int servoPin = 32;
 
         WebServer server(80);
 
@@ -28,6 +30,7 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Controlando o Carrinho</title>
+
             <style>
                 * {
                     font-family: 'Courier New', Courier, monospace;
@@ -284,7 +287,7 @@
                         </div>
                         <div class="atk">
                             <button onclick="location.href='/esquerda'">◀</button>
-                            <button onclick="location.href='/buzina'">⚔️</button>
+                            <button onclick="location.href='/atk'">⚔️</button>
                             <button onclick="location.href='/direita'">▶</button>
                         </div>
                         <div class="luzest">
@@ -338,23 +341,6 @@
         digitalWrite(in4, HIGH);
         server.send(200, "text/html", PAGINA);
         }
-        void luzesFrontais(){
-        digitalWrite(luzesF, LOW);
-        digitalWrite(luzesF, HIGH);
-        server.send(200, "text/html", PAGINA);
-        }
-
-        void luzesTraseiras(){
-        digitalWrite(luzesT, HIGH);
-        digitalWrite(luzesT, LOW);
-        server.send(200, "text/html", PAGINA);
-        }
-
-        void Atk(){
-        digitalWrite(ataqueAtk, HIGH);
-        digitalWrite(ataqueAtk, LOW);
-        server.send(200, "text/html", PAGINA);
-        }
 
         void buz(){
         digitalWrite(buzina, HIGH);
@@ -363,24 +349,29 @@
         server.send(200, "text/html", PAGINA);
         }
 
-        void buz2(){
-        digitalWrite(buzina2, HIGH);
-        delay(1000);
-        digitalWrite(buzina2, LOW);
+        void luzesFrontais(){
+        digitalWrite(luzesF, LOW);
+        digitalWrite(luzesF, HIGH);
         server.send(200, "text/html", PAGINA);
         }
 
+        void sAtaque(){
+        ataqueServo.write(360);
+        delay(250);
+        ataqueServo.write(100);
+        server.send(200, "text/html", PAGINA);
+        }
 
         void setup() {
         Serial.begin(115200);
         delay(1000);
 
-        IPAddress local_IP(192, 168, 27, 51);
-        IPAddress gateway(192, 168, 16, 1);
-        IPAddress subnet(255, 255, 240, 0);
-        IPAddress dns(8, 8, 8, 8);
+        // IPAddress local_IP(192, 168, 16, 145);
+        // IPAddress gateway(192, 168, 16, 1);
+        // IPAddress subnet(255, 255, 240, 0);
+        // IPAddress dns(8, 8, 8, 8);
 
-        WiFi.config(local_IP, gateway, subnet, dns);
+        // WiFi.config(local_IP, gateway, subnet, dns);
 
         WiFi.mode(WIFI_STA);
         WiFi.begin(STA_SSID, STA_PWD);
@@ -415,10 +406,11 @@
         pinMode(in3, OUTPUT);
         pinMode(in4, OUTPUT);
         pinMode(buzina,OUTPUT);
-        pinMode(buzina2,OUTPUT);
         pinMode(luzesF, OUTPUT);
-        pinMode(luzesT, OUTPUT);
         pinMode(ataqueAtk, OUTPUT);
+
+        ataqueServo.attach(servoPin);
+        
 
       
         Serial.begin(115200);
@@ -429,11 +421,9 @@
         server.on("/parar", motorParar);
         server.on("/direita", motorDireita);
         server.on("/esquerda", motorEsquerda);
-        server.on("/luzesfrente", luzesFrontais);
-        server.on("/luzestras", luzesTraseiras);
-        server.on("/atk", Atk);
         server.on("/buzina", buz);
-        server.on("/buzina2", buz2);
+        server.on("/luzesfrente", luzesFrontais);
+        server.on("/atk", sAtaque);
         server.begin();
         }
         void loop() {
